@@ -26,12 +26,23 @@ O `devserver.py` existe só para desenvolvimento: serve a pasta sem cache, evita
 
 ## Gerar imagem da coleção
 
-O botão **Gerar imagem** monta um pôster PNG via `canvas` ([`js/export-image.js`](js/export-image.js)):
+O botão **Gerar imagem** desenha a coleção num `canvas` ([`js/export-image.js`](js/export-image.js)):
 
-- **escopo** — `Elementais` agrupa por raridade; `Variantes` agrupa por elemental, mostrando todas as variantes de cada um;
+- **formato** — `WhatsApp` ou `Pôster`;
+- **escopo** — `Elementais` ou `Variantes`;
 - **filtro** — `Tudo`, `Capturados` ou `Faltando`.
 
-O que já foi capturado sai colorido e com ✓; o que falta sai dessaturado, ainda reconhecível.
+O que já foi capturado sai colorido; o que falta sai dessaturado, ainda reconhecível. Uma cunha no canto do tile, na cor da raridade, marca o que está completo.
+
+**WhatsApp** gera 1080×1920 (9:16) em JPEG, ~310–370 KB. A proporção fixa é o ponto: o app reduz imagens para cerca de 1600 px no maior lado, então um pôster em tira vertical chegaria com tiles de ~27 px, ilegíveis.
+
+O layout se adapta ao escopo. Em `Elementais`, uma grade de 5 colunas com nome e contador de variantes por tile. Em `Variantes`, uma faixa por elemental — rotulada com número da dex, nome e contador — distribuídas em colunas; sem esse agrupamento as 118 variantes viram um mosaico sem contexto. O tamanho do tile é calculado para tudo caber sem rolagem, e a folga vertical é dividida entre as faixas.
+
+Sai JPEG porque o WhatsApp reencoda para JPEG de qualquer jeito: mandar JPEG evita a recompressão dupla. WebP seria menor (~257 KB), mas o app trata `.webp` estático como figurinha em vários fluxos e no Android o arquivo às vezes nem aparece no seletor de imagens.
+
+**Pôster** mantém o formato longo, com faixa de raridade e nome por tile, agrupado por raridade (escopo Elementais) ou por elemental (escopo Variantes). Sai em WebP: nos 1662×9840 do catálogo completo isso é ~1,35 MB contra ~6,1 MB em PNG, sem perda visível. Bom para ver no desktop ou imprimir, ruim para mandar em mensageiro.
+
+Se o navegador não suportar o tipo pedido, o `canvas` devolve PNG silenciosamente — a extensão do arquivo vem do que ele realmente produziu, não do que foi pedido.
 
 ## Atualizar o catálogo
 

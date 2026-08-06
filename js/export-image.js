@@ -42,6 +42,30 @@ const FILTERS = [
   ['missing',  'Faltando'],
 ];
 
+const FORMATS = [
+  ['poster',   'Pôster'],
+  ['whatsapp', 'WhatsApp'],
+];
+
+/**
+ * O pôster cresce em altura e vira uma tira: o WhatsApp reduz a imagem para
+ * ~1600px no maior lado, então com 118 tiles cada um sobraria com ~27px.
+ * O formato WhatsApp usa proporção fixa 9:16 — cabe no Status, aparece
+ * inteiro no chat — e dimensiona os tiles para tudo caber sem rolagem.
+ */
+const WA = {
+  width: 1080,
+  height: 1920,
+  pad: 40,
+  header: 250,
+  footer: 80,
+  gap: 10,
+  minTile: 44,
+  maxTile: 230,
+  labelFrom: 120,   // abaixo disso o nome fica ilegível, então some
+  labelHeight: 46,  // duas linhas: nome + contador de variantes
+};
+
 /* ── Layout ────────────────────────────────────────────────── */
 const PAD        = 56;
 const GAP        = 18;
@@ -94,6 +118,7 @@ function buildGroups({ catalog, progress, dexNumbers, scope, filter }) {
         rarity,
         number: dexNumbers[elemental.id],
         captured: collected > 0,
+        complete: variants.length > 0 && collected === variants.length,
         sub: `${collected}/${variants.length}`,
       };
       all.push(item);
@@ -132,6 +157,7 @@ function buildGroups({ catalog, progress, dexNumbers, scope, filter }) {
         rarity,
         number,
         captured,
+        complete: captured,
         sub: elemental.nome,
       };
       all.push(item);
@@ -161,6 +187,20 @@ function chamferPath(ctx, x, y, w, h, c = CHAMFER) {
   ctx.lineTo(x + c, y + h);
   ctx.lineTo(x, y + h - c);
   ctx.closePath();
+}
+
+/** Cunha no canto superior direito, marcando item completo. */
+function cornerWedge(ctx, x, y, tile, color) {
+  const size = Math.max(14, Math.round(tile * 0.3));
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(x + tile - size, y);
+  ctx.lineTo(x + tile, y);
+  ctx.lineTo(x + tile, y + size);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
 }
 
 function hatch(ctx, x, y, w, h, alpha = 0.035) {
@@ -300,31 +340,13 @@ function drawTile(ctx, item, img, x, y, size) {
   ctx.textBaseline = 'middle';
   ctx.fillText(label, x + 22, y + 21);
 
-  // Selo de capturado
-  if (item.captured) {
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.moveTo(x + tile - 42, y + 10);
-    ctx.lineTo(x + tile - 10, y + 10);
-    ctx.lineTo(x + tile - 10, y + 42);
-    ctx.lineTo(x + tile - 42, y + 42);
-    ctx.closePath();
-    ctx.fill();
-    ctx.fillStyle = HEX.ink;
-    ctx.font = `400 20px ${DISPLAY}`;
-    ctx.textAlign = 'center';
-    ctx.fillText('✓', x + tile - 26, y + 27);
-    ctx.textAlign = 'left';
-  }
+  if (item.complete) cornerWedge(ctx, x, y, tile, color);
 
   ctx.restore();
 }
 
 /* ── Poster ────────────────────────────────────────────────── */
-async function renderPoster({ catalog, progress, dexNumbers, scope, filter }) {
-  await document.fonts.ready;
-
-  const { all, groups } = buildGroups({ catalog, progress, dexNumbers, scope, filter });
+async function renderPoster({ all, groups, scope, filter }) {
   const shown = groups.reduce((total, group) => total + group.items.length, 0);
   const size  = SIZES[scope];
   const { cols, tile, art, body } = size;
@@ -468,11 +490,279 @@ async function renderPoster({ catalog, progress, dexNumbers, scope, filter }) {
   return { canvas, captured, total: all.length, shown };
 }
 
+/**
+ * Codificação por formato.
+ *
+ * O pôster é enorme (1662×9840): em WebP cai de ~6,1 MB para ~1,35 MB sem
+ * perda visível. Já o formato WhatsApp fica em JPEG de propósito — o app
+ * reencoda tudo para JPEG no envio, e arquivo .webp estático é tratado como
+ * figurinha em vários fluxos, além de sumir do seletor de imagens no Android.
+ */
+function encodingFor(format) {
+  return format === 'whatsapp'
+    ? { type: 'image/jpeg', quality: 0.92 }
+    : { type: 'image/webp', quality: 0.92 };
+}
+
+/** Constrói os dados uma vez e despacha para o renderizador do formato. */
+async function renderImage({ catalog, progress, dexNumbers, scope, filter, format }) {
+  await document.fonts.ready;
+  const { all, groups } = buildGroups({ catalog, progress, dexNumbers, scope, filter });
+  const input = { all, groups, scope, filter };
+  return format === 'whatsapp' ? renderCompact(input) : renderPoster(input);
+}
+
+/* ── Formato WhatsApp ──────────────────────────────────────── */
+
+/**
+ * Layout em faixas: uma faixa por elemental, rotulada, distribuídas em colunas.
+ * Sem isso as 118 variantes viram um mosaico sem contexto — com a faixa você
+ * sempre sabe de quem é cada linha.
+ */
+function fitBands(groups, areaW, areaH) {
+  const maxItems = Math.max(...groups.map(g => g.items.length));
+  const labelH = 26;
+  const bandGap = 16;
+  let melhor = null;
+
+  for (const columns of [1, 2, 3]) {
+    const colGap = 24;
+    const bandW = (areaW - colGap * (columns - 1)) / columns;
+    const tile = Math.floor((bandW - WA.gap * (maxItems - 1)) / maxItems);
+    if (tile < 28) continue;
+
+    const rows = Math.ceil(groups.length / columns);
+    const height = rows * (labelH + tile + bandGap) - bandGap;
+    if (height > areaH) continue;
+
+    if (!melhor || tile > melhor.tile) {
+      melhor = { columns, colGap, bandW, tile, rows, labelH, bandGap, height };
+    }
+  }
+
+  if (!melhor) return null;
+
+  // O tile é limitado pela largura da faixa, então costuma sobrar altura.
+  // Espalhar a folga entre as faixas evita um vazio grande no rodapé.
+  if (melhor.rows > 1) {
+    const folga = areaH - melhor.height;
+    const extra = Math.min(28, Math.floor(folga / (melhor.rows - 1)));
+    if (extra > 0) {
+      melhor.bandGap += extra;
+      melhor.height += extra * (melhor.rows - 1);
+    }
+  }
+
+  return melhor;
+}
+
+/** Maior tile que faz os N itens caberem na área disponível. */
+function fitTiles(count, areaW, areaH) {
+  for (let tile = WA.maxTile; tile >= WA.minTile; tile -= 2) {
+    const label = tile >= WA.labelFrom ? WA.labelHeight : 0;
+    const cols = Math.floor((areaW + WA.gap) / (tile + WA.gap));
+    if (cols < 1) continue;
+    const rows = Math.ceil(count / cols);
+    const height = rows * (tile + label + WA.gap) - WA.gap;
+    if (height <= areaH) return { tile, label, cols, rows, height };
+  }
+  const tile = WA.minTile;
+  const cols = Math.max(1, Math.floor((areaW + WA.gap) / (tile + WA.gap)));
+  return { tile, label: 0, cols, rows: Math.ceil(count / cols), height: areaH };
+}
+
+function drawCompactTile(ctx, item, img, x, y, tile, label) {
+  const color = RARITY_HEX[item.rarity] || HEX.muted;
+  const chamfer = Math.max(5, Math.round(tile * 0.13));
+
+  ctx.save();
+  chamferPath(ctx, x, y, tile, tile, chamfer);
+  ctx.fillStyle = item.captured ? color : 'rgba(120,165,230,0.26)';
+  ctx.fill();
+  ctx.restore();
+
+  ctx.save();
+  chamferPath(ctx, x + 2, y + 2, tile - 4, tile - 4, chamfer);
+  ctx.clip();
+
+  const plate = ctx.createLinearGradient(0, y, 0, y + tile);
+  plate.addColorStop(0, item.captured ? HEX.surface : '#0a1120');
+  plate.addColorStop(1, HEX.bg);
+  ctx.fillStyle = plate;
+  ctx.fillRect(x, y, tile, tile);
+
+  if (item.captured) {
+    const glow = ctx.createRadialGradient(x + tile / 2, y + tile, 2, x + tile / 2, y + tile, tile);
+    glow.addColorStop(0, color);
+    glow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.globalAlpha = 0.45;
+    ctx.fillStyle = glow;
+    ctx.fillRect(x, y, tile, tile);
+    ctx.globalAlpha = 1;
+  }
+
+  if (img) {
+    ctx.save();
+    if (!item.captured) {
+      ctx.filter = 'grayscale(1) brightness(0.5) contrast(1.1)';
+      ctx.globalAlpha = 0.9;
+    }
+    const inset = Math.round(tile * 0.08);
+    drawContained(ctx, img, x + inset, y + inset, tile - inset * 2, tile - inset * 2);
+    ctx.restore();
+  }
+  ctx.restore();
+
+  // Cunha chanfrada no canto marca "completo" — mesma linguagem angular do
+  // resto do projeto. Progresso parcial já se lê pela moldura e pelo contador.
+  if (item.complete) cornerWedge(ctx, x, y, tile, color);
+
+  if (label) {
+    ctx.font = `400 19px ${DISPLAY}`;
+    ctx.fillStyle = item.captured ? HEX.text : HEX.muted;
+    ctx.fillText(fitText(ctx, item.name.toUpperCase(), tile), x, y + tile + 22);
+
+    ctx.font = `400 16px ${DISPLAY}`;
+    ctx.fillStyle = item.captured ? color : HEX.muted;
+    ctx.letterSpacing = '1.2px';
+    ctx.fillText(fitText(ctx, item.sub.toUpperCase(), tile), x, y + tile + 42);
+    ctx.letterSpacing = '0px';
+  }
+}
+
+async function renderCompact({ all, groups, scope, filter }) {
+  const items = groups.flatMap(group => group.items);
+  const canvas = document.createElement('canvas');
+  canvas.width = WA.width;
+  canvas.height = WA.height;
+  const ctx = canvas.getContext('2d');
+
+  const bg = ctx.createLinearGradient(0, 0, 0, WA.height);
+  bg.addColorStop(0, HEX.bg);
+  bg.addColorStop(1, HEX.bgDeep);
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, WA.width, WA.height);
+
+  const halo = ctx.createRadialGradient(WA.width / 2, 0, 10, WA.width / 2, 0, WA.width);
+  halo.addColorStop(0, 'rgba(0,150,255,0.26)');
+  halo.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = halo;
+  ctx.fillRect(0, 0, WA.width, WA.header + 220);
+  hatch(ctx, 0, 0, WA.width, WA.height, 0.025);
+
+  const captured = all.filter(item => item.captured).length;
+  const percent = all.length ? Math.round(captured / all.length * 100) : 0;
+  const scopeLabel = SCOPES.find(([id]) => id === scope)[1];
+  const filterLabel = FILTERS.find(([id]) => id === filter)[1];
+
+  // Cabeçalho
+  ctx.textBaseline = 'alphabetic';
+  ctx.font = `400 76px ${DISPLAY}`;
+  ctx.fillStyle = HEX.text;
+  ctx.fillText('FORT', WA.pad, WA.pad + 68);
+  ctx.fillStyle = HEX.cyan;
+  ctx.fillText('DEX', WA.pad + ctx.measureText('FORT').width, WA.pad + 68);
+
+  ctx.font = `400 22px ${DISPLAY}`;
+  ctx.fillStyle = HEX.muted;
+  ctx.letterSpacing = '5px';
+  ctx.fillText(`${scopeLabel.toUpperCase()} · ${filterLabel.toUpperCase()}`, WA.pad, WA.pad + 104);
+  ctx.letterSpacing = '0px';
+
+  ctx.textAlign = 'right';
+  ctx.font = `400 82px ${DISPLAY}`;
+  ctx.fillStyle = HEX.gold;
+  ctx.fillText(`${percent}%`, WA.width - WA.pad, WA.pad + 68);
+  ctx.font = `400 22px ${DISPLAY}`;
+  ctx.fillStyle = HEX.muted;
+  ctx.letterSpacing = '3px';
+  ctx.fillText(`${captured} / ${all.length} CAPTURADOS`, WA.width - WA.pad, WA.pad + 104);
+  ctx.letterSpacing = '0px';
+  ctx.textAlign = 'left';
+
+  const barY = WA.pad + 136;
+  ctx.fillStyle = 'rgba(0,0,0,0.5)';
+  ctx.fillRect(WA.pad, barY, WA.width - WA.pad * 2, 18);
+  const fill = ctx.createLinearGradient(WA.pad, 0, WA.width - WA.pad, 0);
+  fill.addColorStop(0, HEX.blue);
+  fill.addColorStop(0.6, HEX.cyan);
+  fill.addColorStop(1, HEX.gold);
+  ctx.fillStyle = fill;
+  ctx.fillRect(WA.pad, barY, (WA.width - WA.pad * 2) * (percent / 100), 18);
+
+  // Grade centralizada na área livre
+  const areaW = WA.width - WA.pad * 2;
+  const areaH = WA.height - WA.header - WA.footer;
+
+  const bands = scope === 'variantes' && items.length ? fitBands(groups, areaW, areaH) : null;
+
+  if (bands) {
+    const { columns, colGap, bandW, tile, labelH, bandGap, height } = bands;
+    const originY = Math.round(WA.header + Math.min((areaH - height) / 2, 40));
+    const images = await Promise.all(items.map(item => loadImage(item.image)));
+    let cursor = 0;
+
+    groups.forEach((group, index) => {
+      const bx = Math.round(WA.pad + (index % columns) * (bandW + colGap));
+      const by = originY + Math.floor(index / columns) * (labelH + tile + bandGap);
+
+      ctx.font = `400 20px ${DISPLAY}`;
+      ctx.fillStyle = group.color;
+      ctx.fillText(fitText(ctx, group.label.toUpperCase(), bandW - 70), bx, by + 17);
+
+      ctx.font = `400 16px ${DISPLAY}`;
+      ctx.fillStyle = HEX.muted;
+      ctx.textAlign = 'right';
+      ctx.fillText(group.sub, bx + bandW, by + 17);
+      ctx.textAlign = 'left';
+
+      group.items.forEach((item, i) => {
+        drawCompactTile(ctx, item, images[cursor + i], bx + i * (tile + WA.gap), by + labelH, tile, 0);
+      });
+      cursor += group.items.length;
+    });
+  } else if (items.length) {
+    const { tile, label, cols, height } = fitTiles(items.length, areaW, areaH);
+    const gridW = Math.min(cols, items.length) * (tile + WA.gap) - WA.gap;
+    const originX = Math.round((WA.width - gridW) / 2);
+    // Com poucos itens sobra muita altura; centralizar abriria um vazio sob o
+    // cabeçalho, então a grade encosta no topo e a folga fica embaixo.
+    const originY = Math.round(WA.header + Math.min((areaH - height) / 2, 40));
+
+    const images = await Promise.all(items.map(item => loadImage(item.image)));
+    items.forEach((item, index) => {
+      drawCompactTile(
+        ctx, item, images[index],
+        originX + (index % cols) * (tile + WA.gap),
+        originY + Math.floor(index / cols) * (tile + label + WA.gap),
+        tile, label,
+      );
+    });
+  } else {
+    ctx.font = `400 40px ${DISPLAY}`;
+    ctx.fillStyle = HEX.muted;
+    ctx.textAlign = 'center';
+    ctx.fillText('NADA POR AQUI COM ESSE FILTRO', WA.width / 2, WA.header + areaH / 2);
+    ctx.textAlign = 'left';
+  }
+
+  ctx.fillStyle = HEX.line;
+  ctx.fillRect(WA.pad, WA.height - WA.footer, areaW, 2);
+  ctx.font = `400 20px ${DISPLAY}`;
+  ctx.fillStyle = HEX.muted;
+  ctx.letterSpacing = '3px';
+  ctx.fillText(`FORTDEX · ${new Date().toLocaleDateString('pt-BR')}`, WA.pad, WA.height - WA.footer + 44);
+  ctx.letterSpacing = '0px';
+
+  return { canvas, captured, total: all.length, shown: items.length };
+}
+
 /* ── Modal ─────────────────────────────────────────────────── */
 export function openExportImage(context) {
   const root = document.querySelector('#export-root');
   let scope  = 'variantes';
   let filter = 'all';
+  let format = 'whatsapp';
   let canvas = null;
   let generation = 0;   // descarta resultados de renders que já foram substituídos
 
@@ -487,16 +777,16 @@ export function openExportImage(context) {
         <button class="modal-close" type="button" aria-label="Fechar">×</button>
         <header class="export-header">
           <h2 id="export-title">Gerar imagem</h2>
-          <p>Monta um pôster da sua dex para compartilhar. O que já foi capturado aparece colorido e com ✓; o que falta, apagado.</p>
         </header>
         <div class="export-controls">
+          <div class="filter-group" id="export-format" aria-label="Formato">${chips('format', FORMATS, format)}</div>
           <div class="filter-group" id="export-scope" aria-label="Escopo">${chips('scope', SCOPES, scope)}</div>
           <div class="filter-group" id="export-filter" aria-label="Filtro">${chips('filter', FILTERS, filter)}</div>
         </div>
         <div class="export-preview" id="export-preview">${LOADER}</div>
         <footer class="export-footer">
           <p id="export-summary"></p>
-          <button class="button button--primary" id="export-download" type="button" disabled>Baixar PNG</button>
+          <button class="button button--primary" id="export-download" type="button" disabled>Baixar</button>
         </footer>
       </section>
     </div>`;
@@ -512,11 +802,12 @@ export function openExportImage(context) {
     preview.innerHTML = LOADER;
 
     try {
-      const result = await renderPoster({ ...context, scope, filter });
+      const result = await renderImage({ ...context, scope, filter, format });
       if (mine !== generation) return;   // outro render começou depois deste
       canvas = result.canvas;
       preview.replaceChildren(canvas);
-      summary.textContent = `${result.shown} tiles · ${result.captured} de ${result.total} capturados`;
+      summary.textContent =
+        `${result.shown} tiles · ${result.captured} de ${result.total} capturados · ${canvas.width}×${canvas.height}`;
       download.disabled = false;
     } catch (error) {
       if (mine !== generation) return;
@@ -546,17 +837,30 @@ export function openExportImage(context) {
     refresh();
   });
 
+  root.querySelector('#export-format').addEventListener('click', e => {
+    const button = e.target.closest('[data-format]');
+    if (!button || button.dataset.format === format) return;
+    format = button.dataset.format;
+    root.querySelectorAll('[data-format]').forEach(el => el.classList.toggle('is-active', el === button));
+    refresh();
+  });
+
   download.addEventListener('click', () => {
     if (!canvas) return;
+    const { type, quality } = encodingFor(format);
+
     canvas.toBlob(blob => {
+      // Navegador sem suporte ao tipo pedido devolve PNG calado — a extensão
+      // vem do que ele realmente produziu, nunca do que a gente pediu.
+      const ext = (blob.type.split('/')[1] || 'png').replace('jpeg', 'jpg');
       const link = Object.assign(document.createElement('a'), {
         href: URL.createObjectURL(blob),
-        download: `fortdex-${scope}-${filter}.png`,
+        download: `fortdex-${scope}-${filter}.${ext}`,
       });
       link.click();
       URL.revokeObjectURL(link.href);
-      showToast('Imagem baixada.');
-    }, 'image/png');
+      showToast(`Imagem baixada (${Math.round(blob.size / 1024)} KB).`);
+    }, type, quality);
   });
 
   root.querySelector('.modal-close').focus();
