@@ -1030,6 +1030,24 @@ h1, h2, h3 {
 
 .variant:not(.is-soon):hover .variant-image img { transform: scale(1.08); }
 
+/* Não registrada fica apagada, igual à grade — sem isso marcado e não marcado
+   só se distinguiam pela moldura de 2px, que não se lê. */
+.variant:not(.is-collected):not(.is-soon) .variant-image img {
+  filter: grayscale(0.85) brightness(0.5);
+  opacity: 0.85;
+}
+
+.variant:not(.is-collected):not(.is-soon):hover .variant-image img {
+  filter: grayscale(0.2) brightness(0.95);
+  opacity: 1;
+}
+
+.variant.is-collected .variant-image img {
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
+}
+
+.variant:not(.is-collected) .variant-name { color: var(--muted); }
+
 .variant.is-soon .variant-image {
   filter: grayscale(1);
   background:
@@ -1045,8 +1063,8 @@ h1, h2, h3 {
   position: absolute;
   top: 2px;
   right: 2px;
-  width: 2.1rem;
-  height: 2.1rem;
+  width: 2.8rem;
+  height: 2.8rem;
   clip-path: polygon(100% 0, 100% 100%, 0 0);
   background: var(--rarity-color, var(--lime));
   font-size: 0;
