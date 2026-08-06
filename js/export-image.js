@@ -92,7 +92,7 @@ const SIZES = {
 };
 
 /* ── Dados ─────────────────────────────────────────────────── */
-const isSoon = variant => /breve|soon/i.test(variant.drop || '');
+const isSoon = variant => Boolean(variant.emBreve);
 
 const keep = (item, filter) =>
   filter === 'all' ? true :

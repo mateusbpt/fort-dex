@@ -19,11 +19,14 @@ import { text, warn } from './utils.js';
  *
  * Se o markup da fonte mudar, é aqui que se ajusta.
  */
-const CARD = /<div class='sprite-card'([^>]*)>(.*?)(?=<div class='sprite-card'|<\/div><\/div><\/div>|$)/gs;
-const ATTR = name => new RegExp(`data-${name}='([^']*)'`);
-const IMG = /<img[^>]*\ssrc='([^']+)'/;
-const NAME = /<a class='sprite-name'[^>]*>([^<]*)<\/a>/;
-const PILLS = /<span class='sprite-pill[^']*'>([^<]*)<\/span>/g;
+/* Os atributos podem vir com aspas simples (HTML cru do servidor) ou duplas
+   (quando o snapshot sai de document.documentElement.outerHTML). */
+const CARD = /<div class=['"]sprite-card['"]([^>]*)>(.*?)(?=<div class=['"]sprite-card['"]|<\/div><\/div><\/div>|$)/gs;
+const ATTR = name => new RegExp(`data-${name}=['"]([^'"]*)['"]`);
+const IMG = /<img[^>]*\ssrc=['"]([^'"]+)['"]/;
+const NAME = /<a class=['"]sprite-name['"][^>]*>([^<]*)<\/a>/;
+const PILLS = /<span class=['"]sprite-pill[^'"]*['"]>([^<]*)<\/span>/g;
+const UNRELEASED = /sprite-unreleased-badge/;
 
 function attribute(raw, name) {
   return raw.match(ATTR(name))?.[1] || '';
@@ -49,6 +52,7 @@ export function parseListing(html) {
       imageUrl: body.match(IMG)?.[1] || '',
       // A última pill é a chance de drop; a primeira é a raridade.
       drop: pills.length > 1 ? pills[pills.length - 1] : '',
+      emBreve: UNRELEASED.test(body),
     });
   }
 
@@ -109,6 +113,8 @@ export function buildCatalog(cards) {
         imageUrl: card.imageUrl,
         sourceKey: `${parent}__${card.variant}`,
         drop: localizePercent(card.drop),
+        // Sprite anunciado mas ainda não obtenível: não entra nos totais.
+        ...(card.emBreve ? { emBreve: true } : {}),
       };
     }
 

@@ -1,10 +1,7 @@
 import { imageMarkup, rarityStyle, RARITY_VAR } from './ui.js';
 import { escapeHtml } from './utils.js';
 
-function isEmBreve(variant) {
-  const drop = (variant.drop || '').toLowerCase();
-  return drop.includes('breve') || drop.includes('soon');
-}
+const isEmBreve = variant => Boolean(variant.emBreve);
 
 function variantCard(variant, collected, elementalRarity) {
   const style     = rarityStyle(elementalRarity);

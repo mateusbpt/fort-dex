@@ -1,7 +1,7 @@
 {
   "version": 2,
   "source": "fortnite.gg/sprites",
-  "generatedAt": "2026-08-06T03:31:35.736Z",
+  "generatedAt": "2026-08-06T18:36:24.302Z",
   "totalElementais": 25,
   "totalVariantes": 118,
   "elementais": {
@@ -309,7 +309,8 @@
           "id": "gema",
           "nome": "Gema",
           "imagem": "assets/images/punk/gema.webp",
-          "drop": "0%"
+          "drop": "0%",
+          "emBreve": true
         }
       }
     },
