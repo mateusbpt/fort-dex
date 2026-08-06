@@ -28,7 +28,7 @@ function variantCard(variant, collected, elementalRarity) {
     ${imageMarkup(variant.imagem, variant.nome, 'variant-image', elementalRarity)}
 
     ${blocked ? `<div class="variant-soon-badge">Em Breve</div>` : ''}
-    ${isCollected ? `<div class="variant-check">✓</div>` : ''}
+    ${isCollected ? `<div class="variant-check" aria-hidden="true"></div>` : ''}
 
     <div class="variant-footer">
       <div class="variant-name">${escapeHtml(variant.nome)}</div>
@@ -94,7 +94,7 @@ export function openModal(elemental, progress, onChange) {
 
       if (next) {
         card.querySelector('.variant-image')
-          ?.insertAdjacentHTML('afterend', '<div class="variant-check">✓</div>');
+          ?.insertAdjacentHTML('afterend', '<div class="variant-check" aria-hidden="true"></div>');
       } else {
         card.querySelector('.variant-check')?.remove();
       }

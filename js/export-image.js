@@ -779,9 +779,12 @@ export function openExportImage(context) {
           <h2 id="export-title">Gerar imagem</h2>
         </header>
         <div class="export-controls">
-          <div class="filter-group" id="export-format" aria-label="Formato">${chips('format', FORMATS, format)}</div>
-          <div class="filter-group" id="export-scope" aria-label="Escopo">${chips('scope', SCOPES, scope)}</div>
-          <div class="filter-group" id="export-filter" aria-label="Filtro">${chips('filter', FILTERS, filter)}</div>
+          <div class="export-row"><span>Formato</span>
+            <div class="filter-group" id="export-format" aria-label="Formato">${chips('format', FORMATS, format)}</div></div>
+          <div class="export-row"><span>Mostrar</span>
+            <div class="filter-group" id="export-scope" aria-label="Escopo">${chips('scope', SCOPES, scope)}</div></div>
+          <div class="export-row"><span>Filtro</span>
+            <div class="filter-group" id="export-filter" aria-label="Filtro">${chips('filter', FILTERS, filter)}</div></div>
         </div>
         <div class="export-preview" id="export-preview">${LOADER}</div>
         <footer class="export-footer">
