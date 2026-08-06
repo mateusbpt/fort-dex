@@ -34,7 +34,9 @@ O botão **Gerar imagem** desenha a coleção num `canvas` ([`js/export-image.js
 
 O que já foi capturado sai colorido; o que falta sai dessaturado, ainda reconhecível. Uma cunha no canto do tile, na cor da raridade, marca o que está completo.
 
-**WhatsApp** gera 1080×1920 (9:16) em JPEG, ~310–370 KB. A proporção fixa é o ponto: o app reduz imagens para cerca de 1600 px no maior lado, então um pôster em tira vertical chegaria com tiles de ~27 px, ilegíveis.
+**WhatsApp** gera 9:16 em JPEG, ~880 KB. A proporção fixa é o ponto: o app reduz imagens para cerca de 1600 px no maior lado, então um pôster em tira vertical chegaria com tiles de ~27 px, ilegíveis.
+
+O layout é calculado em 1080×1920, mas o canvas é desenhado em 2× e o arquivo sai em 2160×3840. As artes de origem têm 512×512 e no modo variantes os tiles ficam em ~54 px — em 1× o zoom denunciava o reescalonamento. A qualidade do JPEG é 0.86: são 4× os pixels do arquivo de 1× por 2,4× o tamanho.
 
 O layout se adapta ao escopo. Em `Elementais`, uma grade de 5 colunas com nome e contador de variantes por tile. Em `Variantes`, uma faixa por elemental — rotulada com número da dex, nome e contador — distribuídas em colunas; sem esse agrupamento as 118 variantes viram um mosaico sem contexto. O tamanho do tile é calculado para tudo caber sem rolagem, e a folga vertical é dividida entre as faixas.
 

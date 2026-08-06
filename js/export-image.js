@@ -54,6 +54,10 @@ const FORMATS = [
  * inteiro no chat — e dimensiona os tiles para tudo caber sem rolagem.
  */
 const WA = {
+  /* O canvas é desenhado em 2×: as artes são 512×512 e os tiles chegam a
+     ~54px no modo variantes, então em 1× o zoom revela o reescalonamento.
+     O layout continua sendo calculado em 1080×1920 — só a densidade dobra. */
+  scale: 2,
   width: 1080,
   height: 1920,
   pad: 40,
@@ -362,7 +366,13 @@ async function renderPoster({ all, groups, scope, filter }) {
   const canvas = document.createElement('canvas');
   canvas.width  = width;
   canvas.height = height;
+
+  // O pôster já é enorme em pixels absolutos (tiles de 178–268px contra artes
+  // de 512px), então aqui não vale dobrar a densidade: a 2× o canvas passaria
+  // de 65 MP e o navegador engasga.
   const ctx = canvas.getContext('2d');
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
 
   // Fundo
   const bg = ctx.createLinearGradient(0, 0, 0, height);
@@ -499,8 +509,10 @@ async function renderPoster({ all, groups, scope, filter }) {
  * figurinha em vários fluxos, além de sumir do seletor de imagens no Android.
  */
 function encodingFor(format) {
+  // 0.86 porque o canvas do WhatsApp é 2×: 4× os pixels do arquivo antigo por
+  // 2,4× o tamanho, então sobra detalhe onde antes o zoom denunciava.
   return format === 'whatsapp'
-    ? { type: 'image/jpeg', quality: 0.92 }
+    ? { type: 'image/jpeg', quality: 0.86 }
     : { type: 'image/webp', quality: 0.92 };
 }
 
@@ -633,9 +645,13 @@ function drawCompactTile(ctx, item, img, x, y, tile, label) {
 async function renderCompact({ all, groups, scope, filter }) {
   const items = groups.flatMap(group => group.items);
   const canvas = document.createElement('canvas');
-  canvas.width = WA.width;
-  canvas.height = WA.height;
+  canvas.width = WA.width * WA.scale;
+  canvas.height = WA.height * WA.scale;
+
   const ctx = canvas.getContext('2d');
+  ctx.scale(WA.scale, WA.scale);   // resto do desenho segue em coordenadas 1080×1920
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
 
   const bg = ctx.createLinearGradient(0, 0, 0, WA.height);
   bg.addColorStop(0, HEX.bg);
