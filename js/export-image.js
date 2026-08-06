@@ -92,8 +92,6 @@ const SIZES = {
 };
 
 /* ── Dados ─────────────────────────────────────────────────── */
-const isSoon = variant => Boolean(variant.emBreve);
-
 const keep = (item, filter) =>
   filter === 'all' ? true :
   filter === 'captured' ? item.captured : !item.captured;
@@ -150,7 +148,6 @@ function buildGroups({ catalog, progress, dexNumbers, scope, filter }) {
     let total = 0;
 
     for (const variant of entries(elemental.variantes)) {
-      if (isSoon(variant)) continue;   // variante ainda não lançada não conta
       const captured = Boolean(state?.variantes?.[variant.id]);
       total += 1;
       if (captured) collected += 1;

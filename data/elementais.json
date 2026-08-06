@@ -1,9 +1,9 @@
 {
   "version": 2,
   "source": "fortnite.gg/sprites",
-  "generatedAt": "2026-08-06T18:36:24.302Z",
+  "generatedAt": "2026-08-06T21:06:48.079Z",
   "totalElementais": 25,
-  "totalVariantes": 118,
+  "totalVariantes": 117,
   "elementais": {
     "agua": {
       "id": "agua",
@@ -304,13 +304,6 @@
           "nome": "Galáctico",
           "imagem": "assets/images/punk/galactico.webp",
           "drop": "0,17%"
-        },
-        "gema": {
-          "id": "gema",
-          "nome": "Gema",
-          "imagem": "assets/images/punk/gema.webp",
-          "drop": "0%",
-          "emBreve": true
         }
       }
     },

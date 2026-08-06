@@ -1,30 +1,21 @@
 import { imageMarkup, rarityStyle, RARITY_VAR } from './ui.js';
 import { escapeHtml } from './utils.js';
 
-const isEmBreve = variant => Boolean(variant.emBreve);
-
 function variantCard(variant, collected, elementalRarity) {
-  const style     = rarityStyle(elementalRarity);
-  const blocked   = isEmBreve(variant);
-  const isCollected = !blocked && Boolean(collected);
-
-  const classes = [
-    'variant',
-    isCollected ? 'is-collected' : '',
-    blocked     ? 'is-soon'      : '',
-  ].filter(Boolean).join(' ');
+  const style       = rarityStyle(elementalRarity);
+  const isCollected = Boolean(collected);
 
   return `<article
-    class="${classes}"
+    class="variant ${isCollected ? 'is-collected' : ''}"
     style="${style}"
     data-rarity="${escapeHtml(elementalRarity)}"
     data-variant="${escapeHtml(variant.id)}"
-    role="${blocked ? 'img' : 'button'}"
-    ${blocked ? '' : `tabindex="0" aria-label="Marcar ${escapeHtml(variant.nome)} como ${isCollected ? 'não coletado' : 'coletado'}"`}
+    role="button"
+    tabindex="0"
+    aria-label="Marcar ${escapeHtml(variant.nome)} como ${isCollected ? 'não coletado' : 'coletado'}"
   >
     ${imageMarkup(variant.imagem, variant.nome, 'variant-image', elementalRarity)}
 
-    ${blocked ? `<div class="variant-soon-badge">Em Breve</div>` : ''}
     ${isCollected ? `<div class="variant-check" aria-hidden="true"></div>` : ''}
 
     <div class="variant-footer">
@@ -80,7 +71,7 @@ export function openModal(elemental, progress, onChange) {
   // Toggle variant on click (entire card) — skip "em breve".
   // O estado vem da própria classe do card: o modal não é re-renderizado
   // quando o progresso muda, então ele precisa se atualizar sozinho.
-  root.querySelectorAll('.variant:not(.is-soon)').forEach(card => {
+  root.querySelectorAll('.variant').forEach(card => {
     const toggle = () => {
       const id   = card.dataset.variant;
       const next = !card.classList.contains('is-collected');

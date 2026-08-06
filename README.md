@@ -78,7 +78,7 @@ npm run scrape
 O scraper então:
 
 - extrai os 118 cards da listagem — nome, raridade, chance de drop, imagem e o agrupamento por elemental via `data-parent`/`data-variant`;
-- marca com `emBreve` quem ainda tem o selo `sprite-unreleased-badge`: essas variantes aparecem na dex como "Em Breve", não são clicáveis e ficam fora de todos os totais, para a porcentagem não contar o que ainda não dá para obter;
+- descarta quem ainda tem o selo `sprite-unreleased-badge`: variante anunciada mas não obtenível fica fora do catálogo, para não ocupar espaço na dex nem inflar os totais. O terminal avisa quais foram;
 - traduz nomes, raridades e variantes para pt-BR usando os dicionários de [`scraper/translate.js`](scraper/translate.js);
 - ordena os elementais pelo id do sprite na fonte, para a numeração da dex ficar estável entre execuções;
 - converte as artes de `scraper/downloads/` para `assets/images/<elemental>/<variante>.webp`;

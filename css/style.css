@@ -984,15 +984,15 @@ h1, h2, h3 {
   background: linear-gradient(180deg, var(--surface-soft), var(--bg) 80%);
 }
 
-.variant:not(.is-soon):hover {
+.variant:hover {
   transform: translateY(-4px);
   background: var(--rarity-color, var(--cyan));
   filter: drop-shadow(0 10px 18px var(--rarity-glow, transparent));
 }
 
-.variant:not(.is-soon):active { transform: translateY(0); }
+.variant:active { transform: translateY(0); }
 
-.variant:not(.is-soon):focus-visible {
+.variant:focus-visible {
   outline: none;
   background: var(--cyan);
 }
@@ -1009,12 +1009,6 @@ h1, h2, h3 {
     linear-gradient(180deg, var(--surface-hi), var(--surface) 80%);
 }
 
-.variant.is-soon {
-  opacity: 0.55;
-  background: var(--line);
-  cursor: not-allowed;
-}
-
 .variant-image {
   position: relative;
   display: grid;
@@ -1028,16 +1022,16 @@ h1, h2, h3 {
     var(--hatch);
 }
 
-.variant:not(.is-soon):hover .variant-image img { transform: scale(1.08); }
+.variant:hover .variant-image img { transform: scale(1.08); }
 
 /* Não registrada fica apagada, igual à grade — sem isso marcado e não marcado
    só se distinguiam pela moldura de 2px, que não se lê. */
-.variant:not(.is-collected):not(.is-soon) .variant-image img {
+.variant:not(.is-collected) .variant-image img {
   filter: grayscale(0.85) brightness(0.5);
   opacity: 0.85;
 }
 
-.variant:not(.is-collected):not(.is-soon):hover .variant-image img {
+.variant:not(.is-collected):hover .variant-image img {
   filter: grayscale(0.2) brightness(0.95);
   opacity: 1;
 }
@@ -1047,15 +1041,6 @@ h1, h2, h3 {
 }
 
 .variant:not(.is-collected) .variant-name { color: var(--muted); }
-
-.variant.is-soon .variant-image {
-  filter: grayscale(1);
-  background:
-    repeating-linear-gradient(-45deg,
-      rgba(255, 255, 255, 0.06) 0 8px,
-      transparent 8px 16px),
-    rgba(0, 0, 0, 0.3);
-}
 
 /* Cunha no canto marca a variante registrada — mesma linguagem angular dos
    chanfros, sem glifo solto. */
@@ -1068,21 +1053,6 @@ h1, h2, h3 {
   clip-path: polygon(100% 0, 100% 100%, 0 0);
   background: var(--rarity-color, var(--lime));
   font-size: 0;
-}
-
-.variant-soon-badge {
-  position: absolute;
-  top: 0.4rem;
-  left: 0.4rem;
-  padding: 0.15rem 0.55rem;
-  clip-path: var(--skew);
-  background: rgba(0, 0, 0, 0.7);
-  font-family: var(--font-condensed);
-  font-weight: 400;
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold);
 }
 
 /* Só o nome no rodapé — precisa de folga, sobretudo perto do canto chanfrado */

@@ -1,4 +1,4 @@
-import { initial, escapeHtml, countCollected, availableVariants } from './utils.js';
+import { initial, escapeHtml, countCollected, entries } from './utils.js';
 
 /** Maps categoria → CSS custom property name */
 export const RARITY_ORDER = ['Mítico', 'Lendário', 'Épico', 'Raro', 'Incomum', 'Comum'];
@@ -40,7 +40,7 @@ export function imageMarkup(image, name, className, rarity = '') {
 export const dexNumber = n => `#${String(n).padStart(3, '0')}`;
 
 export function renderCard(elemental, progress, number) {
-  const total     = availableVariants(elemental).length;
+  const total     = entries(elemental.variantes).length;
   const collected = countCollected(elemental, progress);
   const percent   = total ? Math.round(collected / total * 100) : 0;
   const rarity    = elemental.categoria || '';

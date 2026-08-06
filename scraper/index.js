@@ -62,8 +62,12 @@ async function run() {
   if (!cards.length) throw new Error('nenhum card encontrado — o markup da fonte provavelmente mudou (veja scraper/parse.js)');
   success(`${cards.length} cards na listagem`);
 
-  const { elementais } = buildCatalog(cards);
+  const { elementais, naoLancados } = buildCatalog(cards);
   const list = Object.values(elementais);
+
+  if (naoLancados.length) {
+    warn(`${naoLancados.length} variante(s) ainda não lançada(s), fora do catálogo: ${naoLancados.join(', ')}`);
+  }
 
   for (const [index, elemental] of list.entries()) {
     log(`\n[${index + 1}/${list.length}] ${elemental.nome} (${elemental.categoria})`);

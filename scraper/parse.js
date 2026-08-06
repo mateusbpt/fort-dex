@@ -73,6 +73,7 @@ export function buildCatalog(cards) {
 
   const elementais = {};
   const unknown = { elementais: new Set(), variantes: new Set() };
+  const naoLancados = [];
 
   /**
    * A listagem vem com os lançamentos primeiro. Ordenamos pelo id do sprite base
@@ -106,6 +107,10 @@ export function buildCatalog(cards) {
         warn(`${parent}: variante sem tradução "${card.variant}" — pulando`);
         continue;
       }
+      // Sprite anunciado mas ainda não obtenível fica fora do catálogo:
+      // não dá para capturar, então não ocupa espaço na dex nem nos totais.
+      if (card.emBreve) { naoLancados.push(`${known.nome} / ${meta.nome}`); continue; }
+
       variantes[meta.id] = {
         id: meta.id,
         nome: meta.nome,
@@ -113,8 +118,6 @@ export function buildCatalog(cards) {
         imageUrl: card.imageUrl,
         sourceKey: `${parent}__${card.variant}`,
         drop: localizePercent(card.drop),
-        // Sprite anunciado mas ainda não obtenível: não entra nos totais.
-        ...(card.emBreve ? { emBreve: true } : {}),
       };
     }
 
@@ -129,5 +132,5 @@ export function buildCatalog(cards) {
     };
   }
 
-  return { elementais, unknown };
+  return { elementais, unknown, naoLancados };
 }
