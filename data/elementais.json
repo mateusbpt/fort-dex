@@ -1,0 +1,917 @@
+{
+  "version": 2,
+  "source": "fortnite.gg/sprites",
+  "generatedAt": "2026-08-06T03:31:35.736Z",
+  "totalElementais": 25,
+  "totalVariantes": 118,
+  "elementais": {
+    "agua": {
+      "id": "agua",
+      "nome": "Água",
+      "categoria": "Raro",
+      "imagem": "assets/images/agua/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/agua/normal.webp",
+          "drop": "0%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/agua/dourado.webp",
+          "drop": "0,53%"
+        },
+        "quack": {
+          "id": "quack",
+          "nome": "Quack",
+          "imagem": "assets/images/agua/quack.webp",
+          "drop": "0%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/agua/gelatinoso.webp",
+          "drop": "0,53%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/agua/galactico.webp",
+          "drop": "0,43%"
+        },
+        "gema": {
+          "id": "gema",
+          "nome": "Gema",
+          "imagem": "assets/images/agua/gema.webp",
+          "drop": "0,37%"
+        },
+        "metalizado": {
+          "id": "metalizado",
+          "nome": "Metalizado",
+          "imagem": "assets/images/agua/metalizado.webp",
+          "drop": "0,53%"
+        }
+      }
+    },
+    "terra": {
+      "id": "terra",
+      "nome": "Terra",
+      "categoria": "Raro",
+      "imagem": "assets/images/terra/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/terra/normal.webp",
+          "drop": "0%"
+        },
+        "cubo": {
+          "id": "cubo",
+          "nome": "Cubo",
+          "imagem": "assets/images/terra/cubo.webp",
+          "drop": "0,21%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/terra/dourado.webp",
+          "drop": "0,53%"
+        },
+        "quack": {
+          "id": "quack",
+          "nome": "Quack",
+          "imagem": "assets/images/terra/quack.webp",
+          "drop": "0%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/terra/gelatinoso.webp",
+          "drop": "0,53%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/terra/galactico.webp",
+          "drop": "0,43%"
+        },
+        "gema": {
+          "id": "gema",
+          "nome": "Gema",
+          "imagem": "assets/images/terra/gema.webp",
+          "drop": "0,37%"
+        }
+      }
+    },
+    "fogo": {
+      "id": "fogo",
+      "nome": "Fogo",
+      "categoria": "Raro",
+      "imagem": "assets/images/fogo/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/fogo/normal.webp",
+          "drop": "0%"
+        },
+        "cubo": {
+          "id": "cubo",
+          "nome": "Cubo",
+          "imagem": "assets/images/fogo/cubo.webp",
+          "drop": "0,21%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/fogo/dourado.webp",
+          "drop": "0,53%"
+        },
+        "quack": {
+          "id": "quack",
+          "nome": "Quack",
+          "imagem": "assets/images/fogo/quack.webp",
+          "drop": "0%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/fogo/gelatinoso.webp",
+          "drop": "0,53%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/fogo/galactico.webp",
+          "drop": "0,43%"
+        },
+        "metalizado": {
+          "id": "metalizado",
+          "nome": "Metalizado",
+          "imagem": "assets/images/fogo/metalizado.webp",
+          "drop": "0,53%"
+        }
+      }
+    },
+    "pato": {
+      "id": "pato",
+      "nome": "Pato",
+      "categoria": "Épico",
+      "imagem": "assets/images/pato/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/pato/normal.webp",
+          "drop": "6,48%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/pato/dourado.webp",
+          "drop": "0,62%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/pato/gelatinoso.webp",
+          "drop": "0,37%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/pato/galactico.webp",
+          "drop": "0,25%"
+        },
+        "gema": {
+          "id": "gema",
+          "nome": "Gema",
+          "imagem": "assets/images/pato/gema.webp",
+          "drop": "0,1%"
+        }
+      }
+    },
+    "fantasma": {
+      "id": "fantasma",
+      "nome": "Fantasma",
+      "categoria": "Épico",
+      "imagem": "assets/images/fantasma/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/fantasma/normal.webp",
+          "drop": "5,25%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/fantasma/dourado.webp",
+          "drop": "0,62%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/fantasma/gelatinoso.webp",
+          "drop": "0,37%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/fantasma/galactico.webp",
+          "drop": "0,25%"
+        },
+        "metalizado": {
+          "id": "metalizado",
+          "nome": "Metalizado",
+          "imagem": "assets/images/fantasma/metalizado.webp",
+          "drop": "1,23%"
+        }
+      }
+    },
+    "sonho": {
+      "id": "sonho",
+      "nome": "Sonho",
+      "categoria": "Lendário",
+      "imagem": "assets/images/sonho/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/sonho/normal.webp",
+          "drop": "4,45%"
+        },
+        "cubo": {
+          "id": "cubo",
+          "nome": "Cubo",
+          "imagem": "assets/images/sonho/cubo.webp",
+          "drop": "0,04%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/sonho/dourado.webp",
+          "drop": "0,43%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/sonho/gelatinoso.webp",
+          "drop": "0,26%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/sonho/galactico.webp",
+          "drop": "0,17%"
+        }
+      }
+    },
+    "punk": {
+      "id": "punk",
+      "nome": "Punk",
+      "categoria": "Lendário",
+      "imagem": "assets/images/punk/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/punk/normal.webp",
+          "drop": "4,45%"
+        },
+        "cubo": {
+          "id": "cubo",
+          "nome": "Cubo",
+          "imagem": "assets/images/punk/cubo.webp",
+          "drop": "0,04%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/punk/dourado.webp",
+          "drop": "0,43%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/punk/gelatinoso.webp",
+          "drop": "0,26%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/punk/galactico.webp",
+          "drop": "0,17%"
+        },
+        "gema": {
+          "id": "gema",
+          "nome": "Gema",
+          "imagem": "assets/images/punk/gema.webp",
+          "drop": "0%"
+        }
+      }
+    },
+    "rei": {
+      "id": "rei",
+      "nome": "Rei",
+      "categoria": "Épico",
+      "imagem": "assets/images/rei/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/rei/normal.webp",
+          "drop": "5,25%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/rei/dourado.webp",
+          "drop": "0,62%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/rei/gelatinoso.webp",
+          "drop": "0,37%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/rei/galactico.webp",
+          "drop": "0,25%"
+        },
+        "metalizado": {
+          "id": "metalizado",
+          "nome": "Metalizado",
+          "imagem": "assets/images/rei/metalizado.webp",
+          "drop": "1,23%"
+        }
+      }
+    },
+    "ponto-zero": {
+      "id": "ponto-zero",
+      "nome": "Ponto Zero",
+      "categoria": "Mítico",
+      "imagem": "assets/images/ponto-zero/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/ponto-zero/normal.webp",
+          "drop": "0%"
+        },
+        "cubo": {
+          "id": "cubo",
+          "nome": "Cubo",
+          "imagem": "assets/images/ponto-zero/cubo.webp",
+          "drop": "0,000014%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/ponto-zero/dourado.webp",
+          "drop": "0,00014%"
+        },
+        "quack": {
+          "id": "quack",
+          "nome": "Quack",
+          "imagem": "assets/images/ponto-zero/quack.webp",
+          "drop": "0%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/ponto-zero/gelatinoso.webp",
+          "drop": "0,000085%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/ponto-zero/galactico.webp",
+          "drop": "0,000056%"
+        },
+        "gema": {
+          "id": "gema",
+          "nome": "Gema",
+          "imagem": "assets/images/ponto-zero/gema.webp",
+          "drop": "0,00001%"
+        },
+        "metalizado": {
+          "id": "metalizado",
+          "nome": "Metalizado",
+          "imagem": "assets/images/ponto-zero/metalizado.webp",
+          "drop": "0,00028%"
+        }
+      }
+    },
+    "demonio": {
+      "id": "demonio",
+      "nome": "Demônio",
+      "categoria": "Épico",
+      "imagem": "assets/images/demonio/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/demonio/normal.webp",
+          "drop": "6,48%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/demonio/dourado.webp",
+          "drop": "0,62%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/demonio/gelatinoso.webp",
+          "drop": "0,37%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/demonio/galactico.webp",
+          "drop": "0,25%"
+        },
+        "gema": {
+          "id": "gema",
+          "nome": "Gema",
+          "imagem": "assets/images/demonio/gema.webp",
+          "drop": "0,1%"
+        }
+      }
+    },
+    "amendoim-torrado": {
+      "id": "amendoim-torrado",
+      "nome": "Amendoim Torrado",
+      "categoria": "Mítico",
+      "imagem": "assets/images/amendoim-torrado/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/amendoim-torrado/normal.webp",
+          "drop": "2,14%"
+        }
+      }
+    },
+    "chefe": {
+      "id": "chefe",
+      "nome": "Chefe",
+      "categoria": "Lendário",
+      "imagem": "assets/images/chefe/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/chefe/normal.webp",
+          "drop": "4,45%"
+        },
+        "cubo": {
+          "id": "cubo",
+          "nome": "Cubo",
+          "imagem": "assets/images/chefe/cubo.webp",
+          "drop": "0,04%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/chefe/dourado.webp",
+          "drop": "0,43%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/chefe/gelatinoso.webp",
+          "drop": "0,26%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/chefe/galactico.webp",
+          "drop": "0,17%"
+        }
+      }
+    },
+    "seven": {
+      "id": "seven",
+      "nome": "Seven",
+      "categoria": "Lendário",
+      "imagem": "assets/images/seven/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/seven/normal.webp",
+          "drop": "3,63%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/seven/dourado.webp",
+          "drop": "0,43%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/seven/gelatinoso.webp",
+          "drop": "0,26%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/seven/galactico.webp",
+          "drop": "0,17%"
+        },
+        "metalizado": {
+          "id": "metalizado",
+          "nome": "Metalizado",
+          "imagem": "assets/images/seven/metalizado.webp",
+          "drop": "0,85%"
+        }
+      }
+    },
+    "peixoto": {
+      "id": "peixoto",
+      "nome": "Peixoto",
+      "categoria": "Raro",
+      "imagem": "assets/images/peixoto/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/peixoto/normal.webp",
+          "drop": "0%"
+        },
+        "cubo": {
+          "id": "cubo",
+          "nome": "Cubo",
+          "imagem": "assets/images/peixoto/cubo.webp",
+          "drop": "0,21%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/peixoto/dourado.webp",
+          "drop": "0,64%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/peixoto/gelatinoso.webp",
+          "drop": "0,53%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/peixoto/galactico.webp",
+          "drop": "0,43%"
+        }
+      }
+    },
+    "atacante": {
+      "id": "atacante",
+      "nome": "Atacante",
+      "categoria": "Épico",
+      "imagem": "assets/images/atacante/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/atacante/normal.webp",
+          "drop": "5,25%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/atacante/dourado.webp",
+          "drop": "0,62%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/atacante/gelatinoso.webp",
+          "drop": "0,37%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/atacante/galactico.webp",
+          "drop": "0,25%"
+        },
+        "metalizado": {
+          "id": "metalizado",
+          "nome": "Metalizado",
+          "imagem": "assets/images/atacante/metalizado.webp",
+          "drop": "1,23%"
+        }
+      }
+    },
+    "aura": {
+      "id": "aura",
+      "nome": "Aura",
+      "categoria": "Épico",
+      "imagem": "assets/images/aura/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/aura/normal.webp",
+          "drop": "6,48%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/aura/dourado.webp",
+          "drop": "0,62%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/aura/gelatinoso.webp",
+          "drop": "0,37%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/aura/galactico.webp",
+          "drop": "0,25%"
+        },
+        "gema": {
+          "id": "gema",
+          "nome": "Gema",
+          "imagem": "assets/images/aura/gema.webp",
+          "drop": "0,08%"
+        }
+      }
+    },
+    "ar": {
+      "id": "ar",
+      "nome": "Ar",
+      "categoria": "Raro",
+      "imagem": "assets/images/ar/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/ar/normal.webp",
+          "drop": "0%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/ar/dourado.webp",
+          "drop": "0,53%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/ar/gelatinoso.webp",
+          "drop": "0,53%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/ar/galactico.webp",
+          "drop": "0,43%"
+        },
+        "metalizado": {
+          "id": "metalizado",
+          "nome": "Metalizado",
+          "imagem": "assets/images/ar/metalizado.webp",
+          "drop": "0,53%"
+        }
+      }
+    },
+    "ceifador": {
+      "id": "ceifador",
+      "nome": "Ceifador",
+      "categoria": "Mítico",
+      "imagem": "assets/images/ceifador/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/ceifador/normal.webp",
+          "drop": "0,15%"
+        },
+        "cubo": {
+          "id": "cubo",
+          "nome": "Cubo",
+          "imagem": "assets/images/ceifador/cubo.webp",
+          "drop": "0%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/ceifador/dourado.webp",
+          "drop": "0,01%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/ceifador/gelatinoso.webp",
+          "drop": "0,01%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/ceifador/galactico.webp",
+          "drop": "0,01%"
+        },
+        "gema": {
+          "id": "gema",
+          "nome": "Gema",
+          "imagem": "assets/images/ceifador/gema.webp",
+          "drop": "0,00099%"
+        },
+        "metalizado": {
+          "id": "metalizado",
+          "nome": "Metalizado",
+          "imagem": "assets/images/ceifador/metalizado.webp",
+          "drop": "0%"
+        }
+      }
+    },
+    "john-wick": {
+      "id": "john-wick",
+      "nome": "John Wick",
+      "categoria": "Mítico",
+      "imagem": "assets/images/john-wick/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/john-wick/normal.webp",
+          "drop": "0%"
+        }
+      }
+    },
+    "batman": {
+      "id": "batman",
+      "nome": "Batman",
+      "categoria": "Mítico",
+      "imagem": "assets/images/batman/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/batman/normal.webp",
+          "drop": "1,44%"
+        },
+        "cubo": {
+          "id": "cubo",
+          "nome": "Cubo",
+          "imagem": "assets/images/batman/cubo.webp",
+          "drop": "0,02%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/batman/dourado.webp",
+          "drop": "0,17%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/batman/gelatinoso.webp",
+          "drop": "0,1%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/batman/galactico.webp",
+          "drop": "0,07%"
+        },
+        "metalizado": {
+          "id": "metalizado",
+          "nome": "Metalizado",
+          "imagem": "assets/images/batman/metalizado.webp",
+          "drop": "0,34%"
+        }
+      }
+    },
+    "pollo": {
+      "id": "pollo",
+      "nome": "Pollo",
+      "categoria": "Mítico",
+      "imagem": "assets/images/pollo/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/pollo/normal.webp",
+          "drop": "2,14%"
+        }
+      }
+    },
+    "vini-jr": {
+      "id": "vini-jr",
+      "nome": "Vini Jr.",
+      "categoria": "Mítico",
+      "imagem": "assets/images/vini-jr/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/vini-jr/normal.webp",
+          "drop": "2,14%"
+        }
+      }
+    },
+    "ironmouse": {
+      "id": "ironmouse",
+      "nome": "Ironmouse",
+      "categoria": "Mítico",
+      "imagem": "assets/images/ironmouse/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/ironmouse/normal.webp",
+          "drop": "2,14%"
+        }
+      }
+    },
+    "lootin-llama": {
+      "id": "lootin-llama",
+      "nome": "Lootin' Llama",
+      "categoria": "Lendário",
+      "imagem": "assets/images/lootin-llama/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/lootin-llama/normal.webp",
+          "drop": "4,45%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/lootin-llama/dourado.webp",
+          "drop": "0,43%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/lootin-llama/gelatinoso.webp",
+          "drop": "0,26%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/lootin-llama/galactico.webp",
+          "drop": "0,17%"
+        },
+        "gema": {
+          "id": "gema",
+          "nome": "Gema",
+          "imagem": "assets/images/lootin-llama/gema.webp",
+          "drop": "0%"
+        }
+      }
+    },
+    "peeky-peely": {
+      "id": "peeky-peely",
+      "nome": "Peeky Peely",
+      "categoria": "Lendário",
+      "imagem": "assets/images/peeky-peely/principal.webp",
+      "variantes": {
+        "normal": {
+          "id": "normal",
+          "nome": "Normal",
+          "imagem": "assets/images/peeky-peely/normal.webp",
+          "drop": "4,62%"
+        },
+        "dourado": {
+          "id": "dourado",
+          "nome": "Dourado",
+          "imagem": "assets/images/peeky-peely/dourado.webp",
+          "drop": "0,43%"
+        },
+        "gelatinoso": {
+          "id": "gelatinoso",
+          "nome": "Gelatinoso",
+          "imagem": "assets/images/peeky-peely/gelatinoso.webp",
+          "drop": "0,26%"
+        },
+        "galactico": {
+          "id": "galactico",
+          "nome": "Galáctico",
+          "imagem": "assets/images/peeky-peely/galactico.webp",
+          "drop": "0,17%"
+        },
+        "metalizado": {
+          "id": "metalizado",
+          "nome": "Metalizado",
+          "imagem": "assets/images/peeky-peely/metalizado.webp",
+          "drop": "0,85%"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "fortdex",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "scrape": "node scraper/index.js"
+  },
+  "dependencies": {
+    "sharp": "^0.34.0"
+  }
+}

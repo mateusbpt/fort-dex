@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FortDex">
+  <defs>
+    <linearGradient id="fd-tile" x1="0" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#5cecff"/>
+      <stop offset="0.55" stop-color="#00b3ff"/>
+      <stop offset="1" stop-color="#0062ff"/>
+    </linearGradient>
+  </defs>
+
+  <title>FortDex</title>
+
+  <path d="M0 0 H50 L64 14 V64 H14 L0 50 Z" fill="url(#fd-tile)"/>
+  <path d="M22 14 H46 V23 H34 V29 H44 V38 H34 V51 H22 Z"
+        fill="#06101f" stroke="#06101f" stroke-width="1.6" stroke-linejoin="round"/>
+</svg>

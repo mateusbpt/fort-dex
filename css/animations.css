@@ -1,0 +1,73 @@
+/* ==========================================================================
+   FortDex — Animações
+   ========================================================================== */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+  50%      { filter: drop-shadow(0 0 14px var(--rarity-color, var(--cyan))); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -220% center; }
+  100% { background-position:  220% center; }
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(.96) translateY(20px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Loader da marca: o "F" do FortDex pulsando */
+@keyframes mark-pulse {
+  0%, 100% {
+    transform: scale(0.9) rotate(-5deg);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 16px var(--cyan));
+  }
+}
+
+/* Varredura de luz diagonal sobre o card — brilho do Item Shop */
+@keyframes sweep {
+  from { transform: translateX(-140%) skewX(-18deg); }
+  to   { transform: translateX(260%)  skewX(-18deg); }
+}
+
+/* Respiração lenta dos orbes de fundo */
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(3%, -4%, 0) scale(1.08); }
+}
+
+/* Preenchimento da barra de progresso ao carregar */
+@keyframes track-fill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

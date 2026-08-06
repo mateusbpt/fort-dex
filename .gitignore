@@ -1,0 +1,7 @@
+node_modules/
+*.log
+
+# Entradas do scraper: snapshot da listagem e ícones trazidos pelo navegador.
+# São material de trabalho, ficam só na máquina de quem roda o scraper.
+scraper/sprites.html
+scraper/downloads/

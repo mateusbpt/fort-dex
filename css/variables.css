@@ -1,0 +1,89 @@
+/* ==========================================================================
+   FortDex — Design tokens
+   Linguagem visual: Fortnite Locker / Item Shop
+   ========================================================================== */
+
+:root {
+  /* ── Background ─────────────────────────────────────────── */
+  --bg: #05080f;
+  --bg-deep: #030509;
+  --surface: #0e1728;
+  --surface-soft: #16223a;
+  --surface-hi: #1d2c49;
+
+  /* ── Lines, strokes & shadows ───────────────────────────── */
+  --line: rgba(120, 165, 230, 0.16);
+  --line-strong: rgba(140, 190, 255, 0.32);
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --shadow-lip: inset 0 -3px 0 rgba(0, 0, 0, 0.35);
+
+  /* ── Text ───────────────────────────────────────────────── */
+  --text: #f2f6ff;
+  --muted: #8ea4c6;
+  --ink: #06101f; /* texto escuro sobre fills claros */
+
+  /* ── Fortnite rarity palette ────────────────────────────── */
+  --common:    #b6c0cf;   /* Comum    — cinza    */
+  --uncommon:  #5ecb3e;   /* Incomum  — verde    */
+  --rare:      #2ea8ff;   /* Raro     — azul     */
+  --epic:      #c353ff;   /* Épico    — roxo     */
+  --legendary: #ff8a1f;   /* Lendário — laranja  */
+  --mythic:    #ffcc2e;   /* Mítico   — dourado  */
+
+  /* ── Brand & utility accents ────────────────────────────── */
+  --blue: #00b3ff;        /* ação primária */
+  --blue-deep: #0062ff;
+  --cyan: #46e8ff;
+  --violet: #9c6bff;
+  --lime: #b9ff45;
+  --gold: #ffd23d;
+  --danger: #ff5470;
+
+  /* ── Shape ──────────────────────────────────────────────── */
+  --radius: 4px;
+  --chamfer: 12px;        /* corte de canto — painéis */
+  --chamfer-sm: 8px;      /* corte de canto — elementos pequenos */
+  --slant: 9px;           /* deslocamento do paralelogramo — botões/chips */
+
+  /* Canto chanfrado: corta superior-direito + inferior-esquerdo */
+  --cut: polygon(
+    0 0,
+    calc(100% - var(--chamfer)) 0,
+    100% var(--chamfer),
+    100% 100%,
+    var(--chamfer) 100%,
+    0 calc(100% - var(--chamfer))
+  );
+  --cut-sm: polygon(
+    0 0,
+    calc(100% - var(--chamfer-sm)) 0,
+    100% var(--chamfer-sm),
+    100% 100%,
+    var(--chamfer-sm) 100%,
+    0 calc(100% - var(--chamfer-sm))
+  );
+  /* Paralelogramo inclinado — botões, chips, pills */
+  --skew: polygon(
+    var(--slant) 0,
+    100% 0,
+    calc(100% - var(--slant)) 100%,
+    0 100%
+  );
+
+  /* Textura diagonal reaproveitada em painéis e cards */
+  --hatch: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.035) 0 2px,
+    transparent 2px 8px
+  );
+
+  /* ── Type ───────────────────────────────────────────────── */
+  --font-display: "Lilita One", Anton, "Barlow Condensed", sans-serif;
+  --font-condensed: "Lilita One", Anton, "Barlow Condensed", sans-serif;
+  --font-body: Inter, system-ui, sans-serif;
+
+  /* ── Motion ─────────────────────────────────────────────── */
+  --ease: cubic-bezier(0.16, 0.9, 0.28, 1);
+  --fast: 0.16s var(--ease);
+  --base: 0.28s var(--ease);
+}

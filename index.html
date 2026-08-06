@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#05080f">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <title>FortDex — Coleção de Elementais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Anton&family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page-glow page-glow--one"></div><div class="page-glow page-glow--two"></div>
+
+  <header class="site-header container">
+    <a class="brand" href="./" aria-label="FortDex, início"><img class="brand-mark" src="assets/brand-mark.svg" width="64" height="64" alt=""><span>FORT<span>DEX</span></span></a>
+    <div class="header-actions">
+      <button class="button button--primary" id="export-image-button" type="button">Gerar imagem</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="status" aria-label="Resumo da coleção">
+      <div class="status__gauge">
+        <strong id="progress-percent">0%</strong>
+        <div class="progress-track"><span id="progress-bar"></span></div>
+        <p id="progress-copy">0 / 0</p>
+      </div>
+      <div id="stats-grid" class="stats-grid"></div>
+    </section>
+
+    <section class="collection-section" id="collection-section">
+      <button id="filter-toggle" class="filter-toggle" type="button" aria-expanded="false" aria-controls="filters">Filtros <span aria-hidden="true">⌄</span></button>
+      <div class="filters" id="filters">
+        <div class="filter-group" id="status-filters" aria-label="Status"></div>
+        <div class="filter-selects">
+          <label class="select-label">Categoria<select id="category-filter"><option value="all">Todas</option></select></label>
+          <label class="select-label">Ordenar<select id="sort-filter"><option value="number">Nº da dex</option><option value="name">Nome</option><option value="most-complete">Mais completos</option><option value="least-complete">Menos completos</option></select></label>
+        </div>
+        <p id="results-count"></p>
+      </div>
+      <div id="elemental-grid" class="elemental-grid" aria-live="polite"></div>
+      <div id="empty-state" class="empty-state" hidden><img class="brand-mark" src="assets/brand-mark.svg" width="64" height="64" alt=""><p>Nenhum elemental encontrado.</p></div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">FORTDEX</footer>
+
+  <div id="modal-root"></div>
+  <div id="export-root"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

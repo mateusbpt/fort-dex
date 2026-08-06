@@ -1,0 +1,2 @@
+import { entries,countCollected,isComplete } from './utils.js';
+export function getStats(elementals,progress){const list=entries(elementals);const variants=list.reduce((total,item)=>total+entries(item.variantes).length,0);const collected=list.reduce((total,item)=>total+countCollected(item,progress[item.id]),0);const complete=list.filter(item=>isComplete(item,progress[item.id])).length;return {elementals:list.length,variants,collected,complete,missingVariants:variants-collected,missingElementals:list.length-complete,percent:variants?Math.round(collected/variants*100):0}}

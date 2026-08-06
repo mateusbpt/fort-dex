@@ -1,0 +1,1 @@
+export function matchesSearch(elemental,query){const normalized=query.trim().toLocaleLowerCase('pt-BR');return !normalized||[elemental.nome,elemental.categoria].some(value=>(value||'').toLocaleLowerCase('pt-BR').includes(normalized))}
